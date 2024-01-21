@@ -1,0 +1,11 @@
+include /usr/share/nano/*.nanorc
+
+# by nyto
+set autoindent
+set cutfromcursor
+set linenumbers
+set locking
+set nonewlines
+set nowrap
+set smarthome
+set tabsize 4
