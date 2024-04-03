@@ -147,7 +147,7 @@ alias modem="nmcli con up id root"
 #alias la='ls -A'
 #alias l='ls -CF'
 alias bir="flutter build apk && adb install -r build/app/outputs/flutter-apk/app-release.apk && adb shell monkey -p com.example.flutter_exec -v 1 && adb shell input keyevent 26 && adb shell input keyevent 82 && scrcpy"
-alias firefox="firefox-developer-edition"
+alias ff="firefox-developer-edition"
 
 alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox"'
 alias copystdout='xclip -sel c'
@@ -155,6 +155,13 @@ alias copy='xclip -sel c <'
 alias sl="ls"
 
 alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
+alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
+
+alias v='nvim'
+
+alias fzman='compgen -c | fzf | xargs man'
+alias jobsdata="cd /home/nyto/Documents/git/elastic-react;pm2 start 'npm start'"
+alias repfile='~/replacefile.sh'
 
 #
 #
@@ -177,5 +184,8 @@ bindkey '^[[1;5C' emacs-forward-word
 bindkey '^[[1;5D' emacs-backward-word
 
 
-alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
