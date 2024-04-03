@@ -147,7 +147,7 @@ alias modem="nmcli con up id root"
 #alias la='ls -A'
 #alias l='ls -CF'
 alias bir="flutter build apk && adb install -r build/app/outputs/flutter-apk/app-release.apk && adb shell monkey -p com.example.flutter_exec -v 1 && adb shell input keyevent 26 && adb shell input keyevent 82 && scrcpy"
-alias ff="firefox-developer-edition"
+alias firefox="firefox-developer-edition"
 
 alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox"'
 alias copystdout='xclip -sel c'
