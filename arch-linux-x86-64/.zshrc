@@ -132,7 +132,7 @@ alias tecno='nmcli con up id "TECNO SPARK 8C"'
 alias diop='nmcli con up id "DIOP FAMILY"'
 
 alias intellij='cd /home/nyto/Documents/intellij/idea-IU-232.8660.185/bin;./idea.sh'
-alias inknyto='su -c "python3 -m http.server 80"'
+# alias inknyto='su -c "python3 -m http.server 80"'
 alias ssfwd='ssh -L 3000:127.0.0.1:8080 u0_a148@192.168.43.150 -p8022'
 alias blockall='sudo ufw enable'
 alias unblockall='sudo ufw disable'
@@ -142,6 +142,8 @@ alias nimport='motor/./import.sh'
 alias ssh_server='motor/ssh/./ssh_server.sh'
 alias ssh_switch='motor/ssh/./ssh_switch.sh'
 alias modem="nmcli con up id root"
+alias dc="cd"
+alias decode=~/b64decode.sh
 
 #alias ll='ls -alF'
 #alias la='ls -A'
@@ -156,12 +158,14 @@ alias sl="ls"
 
 alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
 alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
+alias mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
 
 alias v='nvim'
 
 alias fzman='compgen -c | fzf | xargs man'
 alias jobsdata="cd /home/nyto/Documents/git/elastic-react;pm2 start 'npm start'"
 alias repfile='~/replacefile.sh'
+alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
 
 #
 #
@@ -184,8 +188,13 @@ bindkey '^[[1;5C' emacs-forward-word
 bindkey '^[[1;5D' emacs-backward-word
 
 
-
+alias elevation='pm2 resurrect && cd ~/Documents/git/elevation/src'
+export ELEVATION='/home/nyto/Documents/git/elevation'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# Initial directory listing
+ls
