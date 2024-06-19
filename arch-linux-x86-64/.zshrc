@@ -110,6 +110,10 @@ eval $(thefuck --alias)
 #terminal syntax hoghlighting
 source ~/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
+
+# for the esp32
+# source /opt/esp-idf/export.sh
+
 #set history for multiple terminals
 
 HISTSIZE=10000
@@ -122,12 +126,13 @@ setopt SHARE_HISTORY
 
 # Aliases by nyto
 alias openpy='python3 -m http.server 8080'
-alias dall_diamm='cd /home/nyto/Documents/scraping/projet_API/api;pm2 start server.js --name "Dall Diamm" --watch'
 alias mkcd='function _mkcd() { mkdir "$1" && cd "$1"; }; _mkcd'
-alias sona='nmcli con up id "SONATEL_ACADEMY "'
+alias dall_diamm='cd /home/nyto/Documents/scraping/projet_API/api;pm2 start server.js --name "Dall Diamm" --watch'
 alias redall_diamm='cd /home/nyto/Documents/scraping/projet_API/api;pm2 restart server.js'
 alias admin_page='cd /home/nyto/Documents/scraping/projet_API/frontend/admin;pm2 start "live-server --port=8090 --open=admin.html" --name "Admin page"'
 
+# Networking
+alias sona='nmcli con up id "SONATEL_ACADEMY "'
 alias tecno='nmcli con up id "TECNO SPARK 8C"'
 alias diop='nmcli con up id "DIOP FAMILY"'
 
@@ -138,32 +143,37 @@ alias blockall='sudo ufw enable'
 alias unblockall='sudo ufw disable'
 
 # Other nyto aliases
+alias ic='kitten icat'
 alias nimport='motor/./import.sh'
 alias ssh_server='motor/ssh/./ssh_server.sh'
 alias ssh_switch='motor/ssh/./ssh_switch.sh'
 alias modem="nmcli con up id root"
+alias espap="nmcli con up id espap"
 alias dc="cd"
 alias decode=~/b64decode.sh
+
+alias idfx="source /opt/esp-idf/export.sh && cd ~/Documents/git/nyto-esp32"
 
 #alias ll='ls -alF'
 #alias la='ls -A'
 #alias l='ls -CF'
-alias bir="flutter build apk && adb install -r build/app/outputs/flutter-apk/app-release.apk && adb shell monkey -p com.example.flutter_exec -v 1 && adb shell input keyevent 26 && adb shell input keyevent 82 && scrcpy"
+alias bir="flutter build apk && adb install -r build/app/outputs/flutter-apk/app-release.apk && adb shell monkey -p com.example.chatnyto -v 1 && adb shell input keyevent 26 && adb shell input keyevent 82 && scrcpy"
 alias ff="firefox-developer-edition"
 
-alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox"'
+alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox" && ~/python-venv/bin/python ~/Documents/git/remove-cookie-banner/python_automate.py'
 alias copystdout='xclip -sel c'
+alias copystderr='xclip -sel c'
 alias copy='xclip -sel c <'
 alias sl="ls"
-
+alias jqfile='~/Documents/jqfile.sh'
 alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
 alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
 alias mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
+alias gittoken='`locate gittoken` | xclip -sel c'
 
 alias v='nvim'
 
 alias fzman='compgen -c | fzf | xargs man'
-alias jobsdata="cd /home/nyto/Documents/git/elastic-react;pm2 start 'npm start'"
 alias repfile='~/replacefile.sh'
 alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
 
@@ -188,8 +198,9 @@ bindkey '^[[1;5C' emacs-forward-word
 bindkey '^[[1;5D' emacs-backward-word
 
 
-alias elevation='pm2 resurrect && cd ~/Documents/git/elevation/src'
 export ELEVATION='/home/nyto/Documents/git/elevation'
+alias elevation="sudo systemctl start docker && docker start elastic-docker && pm2 resurrect && cd $ELEVATION"
+alias noelevation="docker stop elastic-docker && sudo systemctl stop docker &&  pm2 kill"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -198,3 +209,43 @@ export NVM_DIR="$HOME/.nvm"
 
 # Initial directory listing
 ls
+###-begin-pm2-completion-###
+### credits to npm for the completion file model
+#
+# Installation: pm2 completion >> ~/.bashrc  (or ~/.zshrc)
+#
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
+export COMP_WORDBREAKS
+
+if type complete &>/dev/null; then
+  _pm2_completion () {
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           pm2 completion -- "${COMP_WORDS[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -o default -F _pm2_completion pm2
+elif type compctl &>/dev/null; then
+  _pm2_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       pm2 completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _pm2_completion + -f + pm2
+fi
+###-end-pm2-completion-###
