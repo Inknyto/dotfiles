@@ -1,5 +1,8 @@
 archivemount
 elasticsearch
+esp-idf
 flutter
+kopete
 ngrok
 otf-helvetica-neue
+tdrop
