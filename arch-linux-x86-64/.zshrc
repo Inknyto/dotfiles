@@ -3,6 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export EDITOR="nvim"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -130,6 +131,7 @@ alias mkcd='function _mkcd() { mkdir "$1" && cd "$1"; }; _mkcd'
 alias dall_diamm='cd /home/nyto/Documents/scraping/projet_API/api;pm2 start server.js --name "Dall Diamm" --watch'
 alias redall_diamm='cd /home/nyto/Documents/scraping/projet_API/api;pm2 restart server.js'
 alias admin_page='cd /home/nyto/Documents/scraping/projet_API/frontend/admin;pm2 start "live-server --port=8090 --open=admin.html" --name "Admin page"'
+alias esp="python /home/nyto/Documents/git/nyto-esp32/flash_command.py"
 
 # Networking
 alias sona='nmcli con up id "SONATEL_ACADEMY "'
@@ -162,7 +164,6 @@ alias ff="firefox-developer-edition"
 
 alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox" && ~/python-venv/bin/python ~/Documents/git/remove-cookie-banner/python_automate.py'
 alias copystdout='xclip -sel c'
-alias copystderr='xclip -sel c'
 alias copy='xclip -sel c <'
 alias sl="ls"
 alias jqfile='~/Documents/jqfile.sh'
@@ -201,6 +202,9 @@ bindkey '^[[1;5D' emacs-backward-word
 export ELEVATION='/home/nyto/Documents/git/elevation'
 alias elevation="sudo systemctl start docker && docker start elastic-docker && pm2 resurrect && cd $ELEVATION"
 alias noelevation="docker stop elastic-docker && sudo systemctl stop docker &&  pm2 kill"
+alias cedo='/home/nyto/Documents/git/supa-tech/starter.sh && cd /home/nyto/Documents/git/supa-tech/'
+alias nocedo="docker stop elastic-supa && sudo systemctl stop docker &&  pm2 kill"
+
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
