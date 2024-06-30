@@ -566,6 +566,8 @@ on post-fs-data
     mount none /data/usr /usr bind rw
     mount none /data/var /var bind rw
     mount none /data/run /run bind rw
+    mount none /data/opt /opt bind rw
+    mount none /data/home /home bind rw
 
     mount none /system/etc /etc bind rw
     
