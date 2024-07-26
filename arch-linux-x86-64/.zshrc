@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+# todo: refactor this zshrc file
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
@@ -102,7 +102,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Created by `pipx` on 2023-12-07 09:45:55
-export PATH="$PATH:/home/nyto/.local/bin"
+# export PATH="$PATH:/home/nyto/.local/bin"
 
 
 # The fuck
@@ -126,62 +126,35 @@ setopt SHARE_HISTORY
 
 
 # Aliases by nyto
-alias openpy='python3 -m http.server 8080'
-alias mkcd='function _mkcd() { mkdir "$1" && cd "$1"; }; _mkcd'
+source ~/.aliases
 # alias dall_diamm='cd /home/nyto/Documents/scraping/projet_API/api;pm2 start server.js --name "Dall Diamm" --watch'
 # alias redall_diamm='cd /home/nyto/Documents/scraping/projet_API/api;pm2 restart server.js'
 # alias admin_page='cd /home/nyto/Documents/scraping/projet_API/frontend/admin;pm2 start "live-server --port=8090 --open=admin.html" --name "Admin page"'
 
 # Networking
-alias sona='nmcli con up id "SONATEL_ACADEMY "'
-alias tecno='nmcli con up id "TECNO SPARK 8C"'
-alias diop='nmcli con up id "DIOP FAMILY"'
-alias modem="nmcli con up id root"
-alias espap="nmcli con up id espap"
-alias ufdefault="sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw reload"
 
-alias intellij='cd /home/nyto/Documents/intellij/idea-IU-232.8660.185/bin;./idea.sh'
 # alias inknyto='su -c "python3 -m http.server 80"'
-alias ssfwd='ssh -L 3000:127.0.0.1:8080 u0_a148@192.168.43.150 -p8022'
 
 # Other nyto aliases
-alias ic='kitten icat'
 # alias nimport='motor/./import.sh'
 # alias ssh_server='motor/ssh/./ssh_server.sh'
 # alias ssh_switch='motor/ssh/./ssh_switch.sh'
 # alias decode=~/b64decode.sh
 
-alias idfx="source /opt/esp-idf/export.sh && cd ~/Documents/git/nyto-esp32"
 
 #alias ll='ls -alF'
 #alias la='ls -A'
 #alias l='ls -CF'
-alias bir="flutter build apk && adb install -r build/app/outputs/flutter-apk/app-release.apk && adb shell monkey -p com.example.chatnyto -v 1 && adb shell input keyevent 26 && adb shell input keyevent 82 && scrcpy"
-alias ff="firefox-developer-edition"
 
-alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox"'
-alias copystdout='xclip -sel c'
-alias copy='xclip -sel c <'
 
 
 # euppeul.com
-alias dc="cd"
-alias sl="ls"
 
 
-alias jqfile='~/Documents/jqfile.sh'
-alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
-alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
-alias mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
-alias gittoken='`locate gittoken` | xclip -sel c'
 
-alias v='nvim'
 
-alias fzman='compgen -c | fzf | xargs man'
 
 # this has to be remade
-alias repfile='~/replacefile.sh'
-alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
 
 #
 #
@@ -207,18 +180,12 @@ bindkey '^[[1;5D' emacs-backward-word
 # Elevation
 source ~/.elevation.zsh
 
-# Android Image Kitchen
-alias AIK="cd /home/nyto/Documents/android-builds/AIK-Linux-x32-x64"
-
-alias json2xlsx='~/Documents/json2xlsx.sh'
-alias xlsx2json='~/Documents/xlsx2json.sh'
 
 # projet cedo
 # source ~/.projet_cedo.zsh
 
 export AUR_BUILDS="/home/nyto/Documents/aur-builds"
 
-alias currentactivity="sh /home/nyto/Pictures/manage-server/sursurdossier/surdossier/dossier/currentactivity.sh"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
