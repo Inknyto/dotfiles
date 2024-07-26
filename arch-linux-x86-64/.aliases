@@ -1,0 +1,47 @@
+# vim: set ft=zsh:
+
+# Networking
+alias openpy='python3 -m http.server 8080'
+alias sona='nmcli con up id "SONATEL_ACADEMY "'
+alias tecno='nmcli con up id "TECNO SPARK 8C"'
+alias diop='nmcli con up id "DIOP FAMILY"'
+alias modem="nmcli con up id root"
+alias espap="nmcli con up id espap"
+alias ufdefault="sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw reload"
+alias ip="ip -br"
+alias ssfwd='ssh -L 3000:127.0.0.1:8080 u0_a148@192.168.43.150 -p8022'
+
+# Nyto Shell
+alias mkcd='function _mkcd() { mkdir "$1" && cd "$1"; }; _mkcd'
+alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
+alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
+alias mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
+
+# Kiss
+alias dc="cd"
+alias sl="ls"
+alias ic='kitten icat'
+alias :q=exit
+alias copystdout='xclip -sel c'
+alias copy='xclip -sel c <'
+alias ff="firefox-developer-edition"
+alias v='nvim'
+# alias intellij='cd /home/nyto/Documents/intellij/idea-IU-232.8660.185/bin;./idea.sh'
+
+# Programming
+alias bir="flutter build apk && adb install -r build/app/outputs/flutter-apk/app-release.apk && adb shell monkey -p com.example.chatnyto -v 1 && adb shell input keyevent 26 && adb shell input keyevent 82 && scrcpy"
+alias idfx="source /opt/esp-idf/export.sh && cd ~/Documents/git/nyto-esp32"
+alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
+alias fzman='compgen -c | fzf | xargs man'
+alias AIK="cd /home/nyto/Documents/android-builds/AIK-Linux-x32-x64"
+
+# Files
+alias jqfile='~/Documents/jqfile.sh'
+alias repfile='~/replacefile.sh'
+alias json2xlsx='~/Documents/json2xlsx.sh'
+alias xlsx2json='~/Documents/xlsx2json.sh'
+alias currentactivity="sh /home/nyto/Pictures/manage-server/sursurdossier/surdossier/dossier/currentactivity.sh"
+
+# Misc
+alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox"'
+alias gittoken='`locate gittoken` | xclip -sel c'
