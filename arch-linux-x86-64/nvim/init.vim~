@@ -59,6 +59,14 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
+call plug#begin()
+" List your plugins here
+Plug 'https://github.com/Abstract-IDE/Abstract-cs.git'
+call plug#end()
+" execute Pluginstall after a new plugin
+
+
+
 
 set rnu
 set nu
@@ -71,4 +79,8 @@ set nohlsearch
 set guicursor=n-v-c-i:block
 set mmp=5000
 set clipboard=unnamedplus
-colorscheme pablo
+colorscheme abscs
+highlight LineNr guifg=gold 
+" might be useful
+" set cursorline
+"
