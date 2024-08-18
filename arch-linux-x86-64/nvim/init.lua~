@@ -5,9 +5,9 @@ require('nytoBase')
 require('nytoPlugins')
 -- Import the statusline configuration
 require('nytoStatus')
--- Import the Prettier configuration
+-- Import the treesitter configuration
 require('nytoPrettier')
--- Import the Nulljs configuration
+-- Import the treesitter configuration
 require('nytoNulljs')
 
 -- Import the treesitter configuration
@@ -15,15 +15,8 @@ require('nytoTreesitter')
 
 -- Import the flutter configuration
 require('nytoFlutter')
-
--- Import the surround configuration
-require('nytoSurround')
-
--- Import the surround configuration
-require('nytoTelescope')
-
 -- Neovim settings vim.opt.relativenumber = true
-require('nytoCoc')
+-- require('nytoCoc')
 
 -- configuration from theprimeagen
 require('nytoNew')
