@@ -1,3 +1,0 @@
-jxlocal builtin = require('telescope.builtin')
-
-vim.keymap.set('n', '<leader>n', builtin.live_grep, {})
