@@ -1,0 +1,6 @@
+require("plugins.vim_plug")
+require("plugins.coc")
+require("plugins.status")
+require("plugins.surround")
+require("plugins.telescope")
+require("plugins.treesitter")

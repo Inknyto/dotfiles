@@ -18,7 +18,13 @@ opt.mmp = 5000
 opt.expandtab = true
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
+opt.cursorcolumn = true
 opt.shada = "!,'100,<50,s10,h"
+
+-- Color scheme
+vim.cmd('colorscheme abscs')
+vim.cmd('highlight LineNr guifg=gold')
+vim.cmd('highlight CursorLineNr guifg=white guibg=#0065cb')
 
 -- Set last cursor position in reopened file
 vim.api.nvim_create_autocmd('BufReadPost', {
