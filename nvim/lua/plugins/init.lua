@@ -1,0 +1,7 @@
+require("plugins.vim_plug")
+require("plugins.coc")
+require("plugins.noice_popup")
+require("plugins.status")
+require("plugins.surround")
+require("plugins.telescope")
+require("plugins.treesitter")
