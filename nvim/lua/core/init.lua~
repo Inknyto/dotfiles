@@ -1,0 +1,10 @@
+require("core.base")
+require("core.new")
+
+function setup_colors()
+    vim.cmd('colorscheme abscs')
+    vim.cmd('highlight LineNr guifg=gold')
+    vim.cmd('highlight CursorLineNr guifg=white guibg=#0065cb')
+end
+
+-- setup_colors()
