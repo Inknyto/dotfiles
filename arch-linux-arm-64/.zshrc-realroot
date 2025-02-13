@@ -5,7 +5,7 @@ ZSH_DISABLE_COMPFIX='true'
 
 # Path to your oh-my-zsh installation.
 # export ZSH=/home/nyto/.oh-my-zsh
-export HOME=/data/realroot
+export HOME=/data/root
 export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -108,11 +108,9 @@ source $ZSH/oh-my-zsh.sh
 
 
 #export PATH=/sbin:/system/sbin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin:/system/sbin:/data/usr/bin:/data/realroot/bin:/data/realroot/sbin
-export PATH=/data/usr/bin:/data/usr/sbin:/data/realroot/bin:/data/realroot/sbin:/sbin:/system/sbin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin:/system/sbin
 
-source /data/realroot/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $HOME/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-alias ls='ls --color=auto'
 alias sysrw='/system/bin/mount -o remount,rw /system'
 alias sysro='/system/bin/mount -o remount,ro /system'
 alias rootrw='/system/bin/mount -o remount,rw /'
