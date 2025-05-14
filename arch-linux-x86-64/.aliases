@@ -1,4 +1,4 @@
-#  ~/.aliases :13 Dec at 08:21:57 PM
+#  ~/.aliases :07 May at 06:53:55 PM
 # vim: set ft=zsh:
 
 # Networking
@@ -14,15 +14,21 @@ alias ip="ip -c -br"
 alias ssfwd='ssh -L 3000:127.0.0.1:8080 u0_a148@192.168.43.150 -p8022'
 
 # Nyto Shell
-alias mkcd='function _mkcd() { mkdir -p "$1" && cd "$1"; }; _mkcd'
-alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
-alias mvcd='function _mvcd() { mv "$1" "$2" && cd "$2"; }; _mvcd'
-alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
-alias mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
+# transfered to ~/.nytoshell
+# alias mkcd='function _mkcd() { mkdir -p "$1" && cd "$1"; }; _mkcd'
+# alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
+# alias mvcd='function _mvcd() { mv "$1" "$2" && cd "$2"; }; _mvcd'
+# alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
+# alias mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
 
-# Kiss
+# Euppeul
 alias dc="cd"
 alias sl="ls"
+alias celar=clear
+alias celra=clear
+alias clera=clear
+
+# Kiss
 alias ic='kitten icat'
 alias :q=exit
 alias copystdout='xclip -sel c'
