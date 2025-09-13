@@ -1,4 +1,3 @@
---  ~/.config/nvim/lua/core/save_filename.lua :23 Oct at 12:17:54 AM
 -- Save the filename as a comment
 local api = vim.api
 
