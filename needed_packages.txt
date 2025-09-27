@@ -1,0 +1,1 @@
+zsh zoxide git nvim bat fzf base-devel go

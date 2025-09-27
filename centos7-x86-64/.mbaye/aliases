@@ -1,0 +1,36 @@
+#  ~/.mbaye/aliases :26 Sep at 07:52:20 AM
+#  vim: set ft=sh:
+# Euppeul
+alias dc="cd"
+alias sl="ls"
+alias celar=clear
+alias celra=clear
+alias clera=clear
+alias hotp=htop
+
+alias v='vim -u ~/.mbaye/vimrc'
+
+function mkcd() {
+  mkdir -p "$1" && cd "$1"
+}
+
+function cpcd() {
+  cp "$1" "$2" && cd "$2"
+}
+
+function mvcd() {
+  mv "$1" "$2" && cd "$2"
+}
+
+function mkmv() {
+  mkdir -p "$2" && mv "$1" "$2" && cd "$2"
+}
+
+function mkcp() {
+  mkdir -p "$2" && cp "$1" "$2" && cd "$2"
+}
+
+function back() {
+  cp "$1" "$1".bak
+}
+

@@ -1,0 +1,19 @@
+#  ~/.mbaye/bashrc :26 Sep at 07:48:30 AM
+PS1='\[\033[0;36m\]$(date "+%H:%M") \[\033[01;32m\][\[\033[01;31m\]\w\[\033[01;32m\]]\n\[\033[01;31m\](\[\033[01;32m\]\u@\h\[\033[01;31m\]) $\[\033[00m\] '
+source ~/.mbaye/aliases
+export XDG_RUNTIME_DIR=/tmp/user/$UID
+if [ ! -d $XDG_RUNTIME_DIR ]
+then
+    mkdir -p $XDG_RUNTIME_DIR
+fi
+
+source ~/.mbaye/ble.sh/out/ble.sh
+if [[ $- == *i* ]]
+then
+    bind '"\e[A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+    # set -o vi
+fi
+# bind '\C-w:unix-filename-rubout'
+bind '\C-w:backward-kill-word'
+

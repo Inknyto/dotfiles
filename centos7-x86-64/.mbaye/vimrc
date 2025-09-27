@@ -1,0 +1,114 @@
+" ~/.mbaye/vimrc :24 Sep at 08:39:14 AM
+" ~/.vimrc - Traditional Vim configuration
+" Converted from ~/.config/nvim/lua/core/base.lua
+
+" Enable true color support (if terminal supports it)
+if has('termguicolors')
+    set termguicolors
+endif
+set numberwidth=3
+
+set fileformats=unix,dos,mac
+syntax on
+set nocompatible
+
+
+
+" Always show the status line
+set laststatus=2
+
+" A function to return the current mode
+function! MyMode()
+    let l:mode = mode()
+    if l:mode == "n"
+        return "NORMAL"
+    elseif l:mode == "i"
+        return "INSERT"
+    elseif l:mode == "v"
+        return "VISUAL"
+    elseif l:mode == "V"
+        return "LINES"
+    elseif l:mode == "\<C-V>"
+        return "BLOCK"
+    elseif l:mode == "R"
+        return "REPLACE"
+    elseif l:mode == "c"
+        return "COMMAND"
+    elseif l:mode == "s"
+        return "SELECT"
+    elseif l:mode == "S"
+        return "S-LINE"
+    elseif l:mode == "\<C-S>"
+        return "S-BLOCK"
+    endif
+    return ""
+endfunction
+
+" Configure the status line with the mode, filename, and other info
+set statusline=%{MyMode()}\ %f\ %m\ %r\ [%y]\ %h\ %=--\ %l/%L:%c\ (%p%%)
+
+" Indentation settings
+set shiftwidth=4
+set tabstop=4
+set expandtab
+
+" Enable persistent undo
+set undofile
+
+" Specify a directory for undo files
+" This will create the directory if it doesn't exist
+if has('persistent_undo')
+  let s:undodir = expand('~/.vim/undo')
+  if !isdirectory(s:undodir)
+    call mkdir(s:undodir, 'p', 0700)
+  endif
+  let &undodir = s:undodir
+endif
+
+" Make undo and redo traverse the full undo tree
+noremap u g-
+noremap <C-r> g+
+
+" Line number settings
+set relativenumber
+set number
+
+" Text display settings
+set wrap
+set colorcolumn=80
+set cursorline
+" set cursorcolumn
+
+" Search settings
+set ignorecase
+set smartcase
+set nohlsearch
+
+" Scroll settings
+set scrolloff=8
+
+" Cursor settings
+set guicursor=n-v-c-i:block
+
+" Memory settings
+set maxmempattern=5000
+
+" Clipboard settings (requires +clipboard feature)
+if has('clipboard')
+    set clipboard=unnamedplus
+endif
+
+" Viminfo settings (shada equivalent in vim)
+set viminfo=!,'100,<50,s10,h
+
+" Set last cursor position in reopened file
+augroup RestoreCursor
+  autocmd!
+  autocmd BufReadPost * if filereadable(expand('%')) && line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+" Set textwidth for text files
+augroup TextFileSettings
+    autocmd!
+    autocmd FileType text setlocal textwidth=92
+augroup END

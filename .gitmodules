@@ -1,0 +1,3 @@
+[submodule "centos7-x86-64/.mbaye/ble.sh"]
+	path = centos7-x86-64/.mbaye/ble.sh
+	url = https://github.com/akinomyoga/ble.sh
