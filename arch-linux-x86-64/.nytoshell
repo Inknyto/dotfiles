@@ -1,5 +1,23 @@
-mkcd='function _mkcd() { mkdir -p "$1" && cd "$1"; }; _mkcd'
-cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
-mvcd='function _mvcd() { mv "$1" "$2" && cd "$2"; }; _mvcd'
-mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
-mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
+# ~/.nytoshell
+# vim:ft=zsh
+
+function mkcd() {
+  mkdir -p "$1" && cd "$1"
+}
+
+function cpcd() {
+  cp "$1" "$2" && cd "$2"
+}
+
+function mvcd() {
+  mv "$1" "$2" && cd "$2"
+}
+
+function mkmv() {
+  mkdir -p "$2" && mv "$1" "$2" && cd "$2"
+}
+
+function mkcp() {
+  mkdir -p "$2" && cp "$1" "$2" && cd "$2"
+}
+

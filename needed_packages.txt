@@ -1,1 +1,1 @@
-zsh zoxide git nvim bat fzf base-devel go
+zsh zoxide git neovim bat fzf base-devel go
