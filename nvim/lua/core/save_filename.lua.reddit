@@ -1,6 +1,4 @@
--- ~/.config/nvim/lua/core/save_filename.lua 09 Nov at 06:36:09 PM
---[[ /tmp/test/a.lua 25 Oct at 09:01:16 AM]]
--- vim.bo.commentstring = [=[--[[ %s]]]=]
+-- /tmp/test/b.lua 19 Oct at 06:15:09 PM
 local api = vim.api
 
 local ignored_filetypes = {
@@ -9,7 +7,6 @@ local ignored_filetypes = {
   "text",
   "help",
   "qf",
-  "crontab",
 
   "NvimTree",
   "toggleterm",
@@ -39,9 +36,10 @@ local function add_filename_comment()
   local save_time = os.date "%d %b at %I:%M:%S %p"
   local filename_with_date_comment = commentstring:format(filename .. " " .. save_time)
 
-  local filename_comment_pattern = commentstring:format(filename .. ".*")
-  local pattern = ("^%s"):format(vim.pesc(filename_comment_pattern):gsub("%%%.%%%*", ".*"))
   local function is_filename_comment(line)
+    local filename_comment = commentstring:format(filename)
+    local pattern = ("^%s.*"):format(vim.pesc(filename_comment))
+
     return line:match(pattern) ~= nil
   end
 

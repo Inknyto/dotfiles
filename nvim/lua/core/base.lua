@@ -1,3 +1,4 @@
+--  ~/.config/nvim/lua/core/base.lua :13 Sep at 04:19:14 PM
 local opt = vim.opt
 
 opt.termguicolors = true
@@ -7,7 +8,7 @@ opt.tabstop = 4
 opt.undofile = true -- Enable persistent undo
 opt.relativenumber = true
 opt.number = true
-opt.wrap = false
+opt.wrap = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.scrolloff = 8
@@ -34,3 +35,11 @@ vim.api.nvim_create_autocmd('BufReadPost', {
         end
     end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "text",
+  callback = function()
+    vim.bo.textwidth = 92
+  end,
+})
+

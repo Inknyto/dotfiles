@@ -1,3 +1,4 @@
+--  ~/.config/nvim/lua/plugins/vim_plug.lua :01 Jun at 04:52:58 PM
 -- Set up plugin manager (vim-plug)
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')

@@ -1,0 +1,244 @@
+
+Advertise on Reddit
+Skip to Navigation
+Skip to Right Sidebar
+r/neovim icon
+Go to neovim
+r/neovim
+•
+6d ago
+Ok_Letterhead_8899
+Creating a lua script for saving the filename in the file
+Need Help
+
+Hello everyone,
+
+I am currently creating a lua script that adds the file path and timestamp on top of the file as a comment when the file is saved. It is useful for me, for example for giving more context to ai when code is copied and pasted. But my problem is the operation is being saved in the neovim's undo history. I have enabled persistend undo and whenever I undo and save the file, I lose the redo history. This is my current code:
+
+-- ~/.config/nvim/lua/core/save_filename.lua :19 Oct at 02:53:32 PM
+
+-- Save the filename as a comment
+
+local api = vim.api
+
+-- List of filetypes to ignore
+
+local ignored_filetypes = {
+
+'gitcommit', 'markdown', 'text', 'help', 'qf',
+
+'NvimTree', 'toggleterm', 'packer', 'fugitive',
+
+'TelescopePrompt', 'DiffviewFiles', 'alpha'
+
+}
+
+-- Function to check if current filetype should be ignored
+
+local function should_ignore_filetype()
+
+local bufnr = api.nvim_get_current_buf()
+
+local filetype = vim.bo[bufnr].filetype
+
+return vim.tbl_contains(ignored_filetypes, filetype)
+
+end
+
+-- Function to add the full path of the file as a comment
+
+local function add_filename_comment()
+
+-- Check if current filetype should be ignored
+
+if should_ignore_filetype() then
+
+return
+
+end
+
+-- Get the current buffer
+
+local bufnr = api.nvim_get_current_buf()
+
+-- Return early if the buffer has no 'commentstring' option
+
+local commentstring = vim.bo[bufnr].commentstring
+
+if commentstring == '' then
+
+return
+
+end
+
+-- Get the current filename
+
+local filename = api.nvim_buf_get_name(bufnr)
+
+-- Replace home path with ~/
+
+local home_dir = vim.fn.expand("~")
+
+filename = filename:gsub("^" .. home_dir, "~")
+
+-- Get buffer lines
+
+local lines = api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+-- Determine the comment syntax, considering multi-line comments
+
+local comment_leader, comment_trailer = commentstring:match("^(.-)%%s(.-)$")
+
+comment_leader = comment_leader or ""
+
+comment_trailer = comment_trailer or ""
+
+-- Generate the new comment with current timestamp
+
+local save_time = os.date('%d %b at %I:%M:%S %p')
+
+local filename_comment
+
+if comment_trailer == '' then
+
+filename_comment = comment_leader .. ' ' .. filename .. ' :' .. save_time
+
+else
+
+filename_comment = comment_leader .. ' ' .. filename .. ' ' .. save_time .. ' ' .. comment_trailer
+
+end
+
+-- Check for shebang in first line
+
+local has_shebang = lines[1]:match("^#!")
+
+local insert_position = has_shebang and 1 or 0
+
+-- Function to check if a line is a filename comment
+
+local function is_filename_comment(line)
+
+-- Escape special pattern characters in the filename
+
+local escaped_filename = filename:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%1")
+
+local pattern = "^" .. comment_leader:gsub("%-", "%%-") .. "%s+" .. escaped_filename .. ".*"
+
+return line:match(pattern) ~= nil
+
+end
+
+-- Find and replace existing filename comment if it exists
+
+local found = false
+
+for i, line in ipairs(lines) do
+
+if is_filename_comment(line) then
+
+-- Use undo=false to prevent this change from being added to undo history
+
+api.nvim_buf_set_lines(bufnr, i - 1, i, false, { filename_comment })
+
+found = true
+
+break
+
+end
+
+end
+
+-- If no existing comment found, insert at appropriate position
+
+if not found then
+
+-- Use undo=false to prevent this change from being added to undo history
+
+api.nvim_buf_set_lines(bufnr, insert_position, insert_position, false, { filename_comment })
+
+end
+
+end
+
+-- Autocmd to run the function before saving the file
+
+api.nvim_create_autocmd("BufWritePre", {
+
+pattern = "*",
+
+callback = add_filename_comment,
+
+})
+
+Can someone please help me perform this without saving the filename operation to the undo history?
+
+--[[ /tmp/test/a.lua 25 Oct at 09:01:16 AM]]
+vim.bo.commentstring = [=[--[[ %s]]]=]
+local api = vim.api
+
+local ignored_filetypes = {
+  "gitcommit",
+  "markdown",
+  "text",
+  "help",
+  "qf",
+
+  "NvimTree",
+  "toggleterm",
+  "packer",
+  "fugitive",
+
+  "TelescopePrompt",
+  "DiffviewFiles",
+  "alpha",
+}
+
+local function should_ignore_filetype()
+  return vim.tbl_contains(ignored_filetypes, vim.bo.filetype)
+end
+
+local function add_filename_comment()
+  if should_ignore_filetype() then return end
+
+  local commentstring = vim.bo.commentstring
+  if commentstring == "" then return end
+
+  local filename = api.nvim_buf_get_name(0)
+  filename = vim.fn.fnamemodify(filename, ":~")
+
+  local lines = api.nvim_buf_get_lines(0, 0, -1, true)
+
+  local save_time = os.date "%d %b at %I:%M:%S %p"
+  local filename_with_date_comment = commentstring:format(filename .. " " .. save_time)
+
+  local filename_comment_pattern = commentstring:format(filename .. ".*")
+  local pattern = ("^%s"):format(vim.pesc(filename_comment_pattern):gsub("%%%.%%%*", ".*"))
+  local function is_filename_comment(line)
+    return line:match(pattern) ~= nil
+  end
+
+  local found = false
+
+  for i, line in ipairs(lines) do
+    if is_filename_comment(line) then
+      api.nvim_buf_set_lines(0, i - 1, i, true, { filename_with_date_comment })
+      found = true
+
+      break
+    end
+  end
+
+  if not found then
+    local has_shebang = lines[1]:match "^#!" ~= nil
+    local insert_position = has_shebang and 1 or 0
+    api.nvim_buf_set_lines(0, insert_position, insert_position, true, { filename_with_date_comment })
+  end
+end
+
+local augroup = api.nvim_create_augroup("personal-add_filename_comment", { clear = true })
+api.nvim_create_autocmd("BufWritePre", {
+  group = augroup,
+  pattern = "*",
+  callback = add_filename_comment,
+})
