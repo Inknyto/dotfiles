@@ -1,8 +1,11 @@
 #  ~/.nytoshell :06 Oct at 06:41:43 PM
-# ~/.nytoshell
+# ~/.nytoshell 15 Jan at 05:55:59 PM
 # vim:ft=zsh
 
 # Create directory and cd into it
+function mkv(){
+    mkdir -p $(dirname $1) && nvim $1
+}
 function mkcd() {
   mkdir -p "$1" && cd "$1"
 }
@@ -58,3 +61,5 @@ function mkcp() {
   
   mkdir -p "$dest" && cp -r "${sources[@]}" "$dest" && cd "$dest"
 }
+
+function back(){ cp $1 $1.bak }
