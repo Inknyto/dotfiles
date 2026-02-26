@@ -1,4 +1,5 @@
-#  ~/.zshrc :07 May at 02:21:17 PM
+# ~/.zshrc 24 Nov at 08:53:19 AM
+#  ~/.zshrc :05 Jun at 11:31:44 AM
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -19,7 +20,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
 export MANPAGER="nvim +Man!"
 
-fpath=( ~/.nytoshell "${fpath[@]}" )
+# fpath=( ~/.completions/ollama.zsh "${fpath[@]}" )
+source ~/.nytoshell
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -93,6 +95,7 @@ plugins=(fzf-tab vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+export FAST_HIGHLIGHT_STYLES[comment]="fg=245"
 source ~/.aliases
 source ~/.completions/completions.zsh
 source ~/.completions/fzf-tab.zsh
@@ -217,7 +220,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export PACMAN_CACHE=/var/cache/pacman/pkg/
 
-export PATH=~/.local/bin/:$PATH
+export PATH=~/.local/bin/:~/go/bin:$PATH
 # evals
 eval $(thefuck --alias)
 eval "$(zoxide init --cmd cd zsh)"
@@ -246,3 +249,4 @@ fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
