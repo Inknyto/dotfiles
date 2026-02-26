@@ -10,3 +10,6 @@
 [submodule "hyprland/hypr-dots"]
 	path = hyprland/hypr-dots
 	url = https://github.com/Inknyto/hypr-dots
+[submodule "waybar/.config/waybar"]
+	path = waybar/.config/waybar
+	url = https://github.com/Inknyto/nyto-waybar
