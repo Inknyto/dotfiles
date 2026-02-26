@@ -1,9 +1,15 @@
-#  ~/.aliases :07 May at 06:53:55 PM
+# ~/.aliases 26 Feb at 07:44:49 PM
 # vim: set ft=zsh:
+# quick fix
+# alias vlc=mpv
 
 # Networking
 alias openpy='python3 -m http.server 8080'
-alias sona='nmcli con up id "SONATEL_ACADEMY "'
+# alias sona='nmcli con up id "SONATEL_ACADEMY "'
+alias byod='nmcli con up id sonatelBYOD'
+alias cor='nmcli con up id corporate'
+alias kor='nmcli con up id KORJAAL'
+alias ink='nmcli con up id Inknyto'
 alias tecno='nmcli con up id "TECNO SPARK 8C"'
 alias diop='nmcli con up id "DIOP FAMILY"'
 alias modem="nmcli con up id root"
@@ -12,35 +18,43 @@ alias dony="nmcli con up id DENYSENE"
 alias ufdefault="sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw reload"
 alias ip="ip -c -br"
 alias ssfwd='ssh -L 3000:127.0.0.1:8080 u0_a148@192.168.43.150 -p8022'
+alias proxy=/home/nyto/Documents/ofms/proxy_automation/proxy2.py
+alias noproxy=/home/nyto/Documents/ofms/proxy_automation/noproxy2.py
 
 # Nyto Shell
-# transfered to ~/.nytoshell
+# moved to ~/.nytoshell
 # alias mkcd='function _mkcd() { mkdir -p "$1" && cd "$1"; }; _mkcd'
 # alias cpcd='function _cpcd() { cp "$1" "$2" && cd "$2"; }; _cpcd'
 # alias mvcd='function _mvcd() { mv "$1" "$2" && cd "$2"; }; _mvcd'
 # alias mkmv='function _mkmv() { mkdir $2 && mv "$1" "$2" && cd "$2"; }; _mkmv'
 # alias mkcp='function _mkcp() { mkdir $2 && cp "$1" "$2" && cd "$2"; }; _mkcp'
 
+alias aarch64='cd /home/nyto/Documents/alarm/qemu; sudo systemd-nspawn -D . --bind=/etc/resolv.conf /bin/zsh'
 # Euppeul
 alias dc="cd"
 alias sl="ls"
 alias celar=clear
 alias celra=clear
 alias clera=clear
+alias hotp=htop
+alias igt=git
+alias gti=git
 
 # Kiss
 alias ic='kitten icat'
 alias :q=exit
-alias copystdout='xclip -sel c'
-alias copy='xclip -sel c <'
+alias copystdout='wl-copy'
+alias copy='function copy () {cat $1 | wl-copy};copy'
 alias ff="firefox-developer-edition"
 alias v='nvim'
+alias l='ls -lhrt'
+alias gccd='function gccd(){git clone --depth 1 $1 && cd $(basename $1)};gccd'
 # alias intellij='cd /home/nyto/Documents/intellij/idea-IU-232.8660.185/bin;./idea.sh'
 
 # Programming
 alias bir="flutter build apk && adb install -r build/app/outputs/flutter-apk/app-release.apk && adb shell monkey -p com.example.chatnyto -v 1 && adb shell input keyevent 26 && adb shell input keyevent 82 && scrcpy"
 alias idfx="source /opt/esp-idf/export.sh && cd ~/Documents/git/nyto-esp32"
-alias ipython='ipython --TerminalInteractiveShell.editing_mode=vi'
+alias ipython='~/.venv/bin/ipython --TerminalInteractiveShell.editing_mode=vi'
 alias fzman='compgen -c | fzf | xargs man'
 alias AIK="cd /home/nyto/Documents/android-builds/AIK-Linux-x32-x64"
 
@@ -52,11 +66,13 @@ alias xlsx2json='~/Documents/xlsx2json.sh'
 alias currentactivity="sh /home/nyto/Pictures/manage-server/sursurdossier/surdossier/dossier/currentactivity.sh"
 
 # Misc
-alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox"'
-alias gittoken='`locate gittoken` | xclip -sel c'
+# alias addons-url='firefox-developer-edition "about:debugging#/runtime/this-firefox"'
+alias addons-url='/home/nyto/remove-cookie-banner/addons-url.sh'
 alias info='info --vi-keys'
 alias ncdu='ncdu --color dark'
 alias please='sudo $(fc -ln -1)'
-
+alias promptend='wl-copy < ~/.prompt_suffix'
+alias arduino='~/Documents/arduino_ide/arduino-ide_2.3.7_Linux_64bit.AppImage --ozone-platform=x11'
+alias pass='env WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR sudo pass'
 # alias ls="eza --color=always --icons=always"
 
