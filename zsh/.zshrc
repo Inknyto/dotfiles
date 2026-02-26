@@ -1,3 +1,4 @@
+# ~/dotfiles/zsh/.zshrc 26 Feb at 10:15:28 PM
 # ~/.zshrc 24 Nov at 08:53:19 AM
 #  ~/.zshrc :05 Jun at 11:31:44 AM
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -91,10 +92,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(fzf-tab vi-mode)
+plugins=(fast-syntax-highlighting fzf-tab vi-mode)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# moved to plugins
+# source ~/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 export FAST_HIGHLIGHT_STYLES[comment]="fg=245"
 source ~/.aliases
 source ~/.completions/completions.zsh
