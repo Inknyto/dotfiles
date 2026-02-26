@@ -1,9 +1,9 @@
 [submodule "centos7-x86-64/.mbaye/ble.sh"]
-	path = centos7-x86-64/.mbaye/ble.sh
+	path = centos-mbaye/.mbaye/ble.sh/ble.sh
 	url = https://github.com/akinomyoga/ble.sh
 [submodule "fast-syntax-highlighting"]
-	path = fast-syntax-highlighting
+	path = zsh/.oh-my-zsh/custom/plugins/fast-syntax-highlighting
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
 [submodule "oh-my-zsh"]
-	path = oh-my-zsh
+	path = zsh/.oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
