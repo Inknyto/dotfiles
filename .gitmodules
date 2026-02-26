@@ -7,3 +7,6 @@
 [submodule "oh-my-zsh"]
 	path = zsh/.oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
+[submodule "hyprland/hypr-dots"]
+	path = hyprland/hypr-dots
+	url = https://github.com/Inknyto/hypr-dots
