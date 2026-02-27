@@ -1,5 +1,5 @@
-; ~/dotfiles/.gitmodules 27 Feb at 12:05:52 AM
-[submodule "centos7-x86-64/.mbaye/ble.sh"]
+; ~/dotfiles/.gitmodules 27 Feb at 12:09:21 AM
+[submodule "centos-mbaye/.mbaye/ble.sh"]
 	path = centos-mbaye/.mbaye/ble.sh
 	url = https://github.com/akinomyoga/ble.sh
 [submodule "fast-syntax-highlighting"]

@@ -1294,8 +1294,8 @@ function ble/complete/check-cancel {
 ##   @var[in,out] insert_flags
 ##     以下のフラグ文字の組み合わせの文字列です。
 ##
-##     r   [in] 既存の部分を保持したまま補完が実行される事を表します。
-##         それ以外の時、既存の入力部分も含めて置換されます。
+##     r   [in] 既存部分を書き換えるような補完であることを表します。
+##         これが含まれない場合、既存部分を保持したまま追記する形で補完します。
 ##     m   [out] 候補一覧 (menu) の表示を要求する事を表します。
 ##     n   [out] 再度補完を試み (確定せずに) 候補一覧を表示する事を要求します。
 ##
@@ -1772,7 +1772,17 @@ function ble/complete/action/requote-final-insert {
         ble/syntax:bash/simple-word/safe-eval "$ins" limit=2 &&
         ((${#ret[@]}==1))
     then
-      ble/string#quote-word "$ret" quote-empty
+      if [[ $comps_flags == *[SEDI]* ]]; then
+        ble/complete/string#escape-for-completion-context "$ret"
+        case $comps_flags in
+        (*S*) ret=\'$ret ;;
+        (*E*) ret=\$\'$ret ;;
+        (*D*) ret=\"$ret ;;
+        (*I*) ret=\$\"$ret ;;
+        esac
+      else
+        ble/string#quote-word "$ret" quote-empty
+      fi
       ((${#ret}+threshold<=${#ins})) || return 0
       insert=$comps_prefix$ret
       [[ $insert == "$COMPS"* ]] || insert_flags=r$insert_flags # 遡って書き換えた
@@ -5980,6 +5990,18 @@ function ble/complete/source:option/.is-option-context {
   return 0
 }
 
+## @fn ble/complete/source:option [opts]
+##   @param[in,opt] opts
+##     @opt empty
+##       Generate option names even when the current word is empty.  By
+##       default, the generation of the options is enabled only when the
+##       current word starts with - or +.
+##     @opt reuse-comp_words
+##       When this option is specified, use the externally-specified variables
+##       "comp_words", "comp_line", "comp_point", and "comp_cword" instead of
+##       extracting them by the syntax analysis on the current point.  This is
+##       used when the target command is intentionally different from the shell
+##       syntax, such as the case of "sudo command ...".
 function ble/complete/source:option {
   local opts=$1
   if [[ :$opts: == *:empty:* ]]; then
@@ -5995,8 +6017,10 @@ function ble/complete/source:option {
   ble/complete/source/reduce-compv-for-ambiguous-match
   [[ :$comp_type: == *:[maA]:* ]] && local COMP2=$COMP1
 
-  local comp_words comp_line comp_point comp_cword
-  ble/syntax:bash/extract-command "$COMP2" || return 1
+  if [[ :$opts: != *:reuse-comp_words:* ]]; then
+    local comp_words comp_line comp_point comp_cword
+    ble/syntax:bash/extract-command "$COMP2" || return 1
+  fi
 
   ble/complete/source:option/generate-for-command "${comp_words[@]::comp_cword}"
 }
@@ -6181,6 +6205,19 @@ function ble/complete/source:argument/generate {
   ble/complete/source:argument/.generate-user-defined-completion; local ext=$?
   ((ext==148||cand_count>old_cand_count)) && return "$ext"
 
+  ble/complete/source:argument/fallback
+}
+
+## @fn ble/complete/source:argument/fallback
+##   @param[in] opts
+##     @opt reuse-comp_words
+##   @var[in] comp_opts
+##     @opt ble/default
+##     @opt dirnames
+##     @opt default
+function ble/complete/source:argument/fallback {
+  local opts=$1 old_cand_count=$cand_count
+
   # When no completions are generated, we attempt "ble/default" argument
   # completions in the following.  If "ble/default" completions are disabled,
   # we emulate Bash's behavior based on "-o default" and "-o dirnames".
@@ -6207,7 +6244,10 @@ function ble/complete/source:argument/generate {
   # 2. Attempt built-in argument completion
 
   # "-option" の時は complete options based on mandb
-  ble/complete/source:option; local ext=$?
+  local option_opts=
+  [[ :$opts: == *:reuse-comp_words:* ]] &&
+    option_opts=$option_opts:reuse-comp_words
+  ble/complete/source:option "$option_opts"; local ext=$?
   ((ext==148)) && return "$ext"
 
   # When "-o dirnames" is specified, the directory names are first attempted,
@@ -6225,7 +6265,7 @@ function ble/complete/source:argument/generate {
   fi
 
   # 空文字列に対するオプション生成はファイル名よりも後で試みる
-  ble/complete/source:option empty; local ext=$?
+  ble/complete/source:option "$option_opts:empty"; local ext=$?
   ((ext==148||cand_count>old_cand_count)) && return "$ext"
 
   #----------------------------------------------------------------------------
@@ -7011,6 +7051,15 @@ function ble/complete/candidates/comp_type#read-rl-variables {
 ##   @var[in,out] cand_limit_reached
 function ble/complete/candidates/generate {
   local opts=$1
+
+  if [[ :$comp_type: == *:auto:* ]]; then
+    if [[ ! $COMPV && :$bleopt_complete_auto_complete_opts: == *:syntax-suppress-empty:* ]]; then
+      return 0
+    elif [[ :$bleopt_complete_auto_complete_opts: == *:syntax-suppress-ambiguous:* ]]; then
+      local bleopt_complete_ambiguous=
+    fi
+  fi
+
   local flag_force_fignore=
   local flag_source_filter=
   local -a comp_fignore=()
@@ -9104,7 +9153,7 @@ function ble/complete/auto-complete/source:history/.impl {
   ble/complete/auto-complete/enter h 0 "${command:${#_ble_edit_str}}" '' "$command"
 }
 function ble/complete/auto-complete/source:history {
-  [[ $bleopt_complete_auto_history ]] || return 1
+  [[ :$bleopt_complete_auto_complete_opts: != *:history-disabled:* ]] || return 1
   ble/complete/auto-complete/source:history/.impl light; local ext=$?
   ((ext==0||ext==148)) && return "$ext"
 
@@ -9116,6 +9165,8 @@ function ble/complete/auto-complete/source:history {
 ## @fn ble/complete/auto-complete/source:syntax
 ##   @var[in] comp_type comp_text comp_index
 function ble/complete/auto-complete/source:syntax {
+  [[ :$bleopt_complete_auto_complete_opts: != *:syntax-disabled:* ]] || return 1
+
   local sources
   ble/complete/context:syntax/generate-sources "$comp_text" "$comp_index" &&
     ble/complete/context/filter-prefix-sources || return 1
@@ -9133,7 +9184,11 @@ function ble/complete/auto-complete/source:syntax {
   [[ $COMPV ]] || return 1
   ((ext)) && return "$ext"
 
-  ((cand_count)) || return 1
+  if [[ :$bleopt_complete_auto_complete_opts: == *:syntax-unique:* ]]; then
+    ((cand_count==1))
+  else
+    ((cand_count))
+  fi || return 1
 
   local word=${cand_word[0]} cand=${cand_cand[0]}
   [[ $word == "$COMPS" ]] && return 1
@@ -9210,6 +9265,12 @@ function ble/complete/auto-complete.idle {
   esac
 
   [[ $_ble_edit_str ]] || return 0
+
+  if [[ :$bleopt_complete_auto_complete_opts: == *:suppress-inside-line:* ]]; then
+    [[ ${_ble_edit_str:_ble_edit_ind:1} == [!$'\n'] ]] && return 0
+  elif [[ :$bleopt_complete_auto_complete_opts: == *:suppress-inside-word:* ]]; then
+    [[ ${_ble_edit_str:_ble_edit_ind:1} == [!$' \t\n"'\'';&|<>()=:'] ]] && return 0
+  fi
 
   # bleopt_complete_auto_delay だけ経過してから処理
   ble/util/idle.sleep-until "$((_ble_idle_clock_start+bleopt_complete_auto_delay))" checked && return 0
@@ -9509,12 +9570,13 @@ function ble-decode/keymap:auto_complete/define {
 # @var _ble_complete_sabbrev
 
 function ble/complete/sabbrev/.initialize-print {
-  sgr0= sgr1= sgr2= sgr3= sgro=
+  sgr0= sgr1= sgr2= sgr3= sgr4= sgro=
   if [[ $flags == *c* || $flags != *n* && -t 1 ]]; then
     local ret
     ble/color/face2sgr command_function; sgr1=$ret
     ble/color/face2sgr syntax_varname; sgr2=$ret
     ble/color/face2sgr syntax_quoted; sgr3=$ret
+    ble/color/face2sgr syntax_escape; sgr4=$ret
     ble/color/face2sgr argument_option; sgro=$ret
     sgr0=$_ble_term_sgr0
   fi
@@ -9525,9 +9587,9 @@ function ble/complete/sabbrev/.print-definition {
   [[ $type != w ]] && option=$sgro'-'$type$sgr0' '
 
   local ret
-  ble/string#quote-word "$key" quote-empty:sgrq="$sgr3":sgr0="$sgr2"
+  ble/string#quote-word "$key" quote-empty:sgrq="$sgr3":sgre="$sgr4":sgr0="$sgr2"
   key=$sgr2$ret$sgr0
-  ble/string#quote-word "$value" sgrq="$sgr3":sgr0="$sgr0"
+  ble/string#quote-word "$value" sgrq="$sgr3":sgre="$sgr4":sgr0="$sgr0"
   value=$ret
   ble/util/print "${sgr1}ble-sabbrev$sgr0 $option$key=$value"
 }
@@ -9575,7 +9637,7 @@ function ble/complete/sabbrev/list {
     ((${#keys[@]})) || return 0
   fi
 
-  local sgr0 sgr1 sgr2 sgr3 sgro
+  local sgr0 sgr1 sgr2 sgr3 sgr4 sgro
   ble/complete/sabbrev/.initialize-print
 
   local key ext=0
