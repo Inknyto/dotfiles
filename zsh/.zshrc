@@ -1,4 +1,4 @@
-# ~/dotfiles/zsh/.zshrc 26 Feb at 10:15:28 PM
+# ~/dotfiles/zsh/.zshrc 27 Feb at 01:02:25 AM
 # ~/.zshrc 24 Nov at 08:53:19 AM
 #  ~/.zshrc :05 Jun at 11:31:44 AM
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -22,7 +22,8 @@ export EDITOR="nvim"
 export MANPAGER="nvim +Man!"
 
 # fpath=( ~/.completions/ollama.zsh "${fpath[@]}" )
-source ~/.nytoshell
+# source ~/.nytoshell
+[[ -f ~/.nytoshell ]] && source ~/.nytoshell || echo "WARNING: ~/.nytoshell not found"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -94,13 +95,20 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(fast-syntax-highlighting fzf-tab vi-mode)
 
-source $ZSH/oh-my-zsh.sh
-# moved to plugins
+# moved to p# source $ZSH/oh-my-zsh.sh
+[[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh || echo "WARNING: oh-my-zsh not found at $ZSH"
+lugins
+
 # source ~/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 export FAST_HIGHLIGHT_STYLES[comment]="fg=245"
-source ~/.aliases
-source ~/.completions/completions.zsh
-source ~/.completions/fzf-tab.zsh
+# source ~/.aliases
+[[ -f ~/.aliases ]] && source ~/.aliases || echo "WARNING: ~/.aliases not found"
+
+# source ~/.completions/completions.zsh
+[[ -f ~/.completions/completions.zsh ]] && source ~/.completions/completions.zsh || echo "WARNING: ~/.completions/completions.zsh not found"
+
+# source ~/.completions/fzf-tab.zsh
+[[ -f ~/.completions/fzf-tab.zsh ]] && source ~/.completions/fzf-tab.zsh || echo "WARNING: ~/.completions/fzf-tab.zsh not found"
 
 # source ~/.powerlevel10k/powerlevel10k.zsh-theme
 # User configuration
@@ -224,13 +232,20 @@ export PACMAN_CACHE=/var/cache/pacman/pkg/
 
 export PATH=~/.local/bin/:~/go/bin:$PATH
 # evals
-eval $(thefuck --alias)
-eval "$(zoxide init --cmd cd zsh)"
-eval "$(fzf --zsh)"
+
+# eval $(thefuck --alias)
+(( $+commands[thefuck] )) && eval $(thefuck --alias) || echo "WARNING: thefuck not found"
+
+# eval "$(zoxide init --cmd cd zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init --cmd cd zsh)" || echo "WARNING: zoxide not found"
+
+
+
+# eval "$(fzf --zsh)"
+(( $+commands[fzf] )) && eval "$(fzf --zsh)" || echo "WARNING: fzf not found"
 # end evals
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh || echo "WARNING: ~/.p10k.zsh not found"
 
 # Keybindings
 bindkey "\e." insert-last-word
