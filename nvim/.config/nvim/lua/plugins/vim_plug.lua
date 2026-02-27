@@ -1,23 +1,24 @@
--- ~/dotfiles/nvim/.config/nvim/lua/plugins/vim_plug.lua 27 Feb at 10:09:11 AM
 --  ~/.config/nvim/lua/plugins/vim_plug.lua :01 Jun at 04:52:58 PM
--- Set up plugin manager (vim-plug)
-local data_dir = vim.fn.stdpath('data') .. '/site'
-if vim.fn.empty(vim.fn.glob(data_dir .. '/autoload/plug.vim')) == 1 then
+
+-- Auto-install vim-plug if not found
+local plug_path = vim.fn.expand('~/.config/nvim/autoload/plug.vim')
+if vim.fn.filereadable(plug_path) == 0 then
+  vim.notify('vim-plug not found. Installing...', vim.log.levels.INFO)
   vim.fn.system({
-    'curl', '-fLo', data_dir .. '/autoload/plug.vim',
+    'curl', '-fLo', plug_path,
     '--create-dirs',
     'https://raw.githubusercontent.com/junegunn/vim-plug/refs/heads/master/plug.vim'
   })
   vim.api.nvim_create_autocmd('VimEnter', {
     callback = function()
-      vim.cmd('PlugInstall --sync | source $MYVIMRC')
-    end
+      vim.cmd('PlugInstall --sync')
+    end,
   })
 end
 
+-- Set up plugin manager (vim-plug)
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
-
 -- colorscheme
 Plug 'https://github.com/Abstract-IDE/Abstract-cs.git'
 -- status bar
@@ -47,5 +48,4 @@ Plug "olrtg/nvim-emmet"
 Plug 'folke/noice.nvim'
 Plug 'MunifTanjim/nui.nvim'
 -- end noice nvim
-
 vim.call('plug#end')
