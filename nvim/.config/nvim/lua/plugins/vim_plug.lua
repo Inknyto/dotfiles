@@ -1,3 +1,5 @@
+-- ~/dotfiles/nvim/.config/nvim/lua/plugins/vim_plug.lua 27 Feb at 01:08:54 PM
+-- ~/.config/nvim/lua/plugins/vim_plug.lua 27 Feb at 01:01:14 PM
 --  ~/.config/nvim/lua/plugins/vim_plug.lua :01 Jun at 04:52:58 PM
 
 -- Auto-install vim-plug if not found
@@ -28,8 +30,9 @@ Plug 'nvim-tree/nvim-web-devicons'
 -- surround
 Plug "kylechui/nvim-surround"
 -- treesitter
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/playground'
+Plug ('nvim-treesitter/nvim-treesitter', {branch = 'main'})
+-- playground is introducing bugs
+-- Plug 'nvim-treesitter/playground'
 -- telescope
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 -- Plug 'neovim/nvim-lspconfig'
