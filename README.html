@@ -1,0 +1,138 @@
+<h1 id="inknytos-dotfiles">Inknyto’s Dotfiles</h1>
+<p>A collection of configuration files for various Linux environments,
+managed using <a href="https://www.gnu.org/software/stow/">GNU Stow</a>.
+This setup is optimized for Arch Linux (including ARM) and features a
+highly customized Zsh shell, Hyprland WM, and Neovim.</p>
+<figure>
+<img src="arch.png" alt="Arch Linux" />
+<figcaption aria-hidden="true">Arch Linux</figcaption>
+</figure>
+<h2 id="quick-start">🚀 Quick Start</h2>
+<h3 id="prerequisites">1. Prerequisites</h3>
+<p>Ensure you have the following packages installed:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arch Linux</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pacman <span class="at">-S</span> stow zsh zoxide git neovim bat fzf base-devel go thefuck</span></code></pre></div>
+<p><strong>Font:</strong> This setup uses
+<code>RobotoMono Nerd Font</code>. Ensure it is installed for the icons
+and Powerlevel10k to render correctly.</p>
+<h3 id="installation">2. Installation</h3>
+<p>Clone the repository with all submodules:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--recursive</span> https://github.com/Inknyto/dotfiles.git ~/dotfiles</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/dotfiles</span></code></pre></div>
+<h3 id="deploying-with-stow">3. Deploying with Stow</h3>
+<p>Use <code>stow</code> to symlink the configurations to your home
+directory:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stow individual components</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">stow</span> zsh</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">stow</span> nvim</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">stow</span> hyprland</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">stow</span> waybar</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">stow</span> bin</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">stow</span> apps</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># For system-wide configs (requires sudo)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> stow <span class="at">-t</span> / system</span></code></pre></div>
+<h2 id="components">📦 Components</h2>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zsh/</code></td>
+<td>Zsh config with Oh My Zsh, Powerlevel10k, and custom aliases.</td>
+</tr>
+<tr>
+<td><code>nvim/</code></td>
+<td>Neovim configuration (Lua-based).</td>
+</tr>
+<tr>
+<td><code>hyprland/</code></td>
+<td>Hyprland Wayland Compositor configuration.</td>
+</tr>
+<tr>
+<td><code>waybar/</code></td>
+<td>Waybar status bar configuration.</td>
+</tr>
+<tr>
+<td><code>bin/</code></td>
+<td>Custom utility scripts located in <code>~/.local/bin</code>.</td>
+</tr>
+<tr>
+<td><code>apps/</code></td>
+<td>Miscellaneous app configs (Vimium, Yakuake, Jupyter, Firefox).</td>
+</tr>
+<tr>
+<td><code>bash/</code></td>
+<td>Standard <code>.bashrc</code> fallback.</td>
+</tr>
+<tr>
+<td><code>nano/</code></td>
+<td>Simple <code>.nanorc</code> styling.</td>
+</tr>
+<tr>
+<td><code>screen/</code></td>
+<td>GNU Screen multiplexer config.</td>
+</tr>
+<tr>
+<td><code>vim/</code></td>
+<td>Classic <code>.vimrc</code> configuration.</td>
+</tr>
+<tr>
+<td><code>system/</code></td>
+<td>System-level configs (pacman, locale).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="included-scripts-.localbin">🛠️ Included Scripts
+(<code>~/.local/bin</code>)</h2>
+<p>The <code>bin</code> directory contains several useful scripts:</p>
+<ul>
+<li><strong>Multimedia:</strong> <code>convert_mp4_to_gif.sh</code>,
+<code>generate_gif.sh</code>, <code>generate_qr_code.sh</code>.</li>
+<li><strong>System/Maintenance:</strong>
+<code>pacman-backup-aur.sh</code>,
+<code>pacman-restore-official.sh</code>, <code>nmodkill.sh</code>.</li>
+<li><strong>Networking:</strong> <code>generate_mac_address.sh</code>,
+<code>masscan_entire_internet.sh</code>.</li>
+<li><strong>Utilities:</strong> <code>jqfile.sh</code>,
+<code>json2xlsx.sh</code>, <code>replacefile.sh</code>,
+<code>retry.sh</code>.</li>
+</ul>
+<h2 id="specialized-environments">📱 Specialized Environments</h2>
+<ul>
+<li><strong><code>arch-arm/</code></strong>: Specific configurations for
+Arch Linux on ARM devices (e.g., Samsung On7xelte), including CPU
+modification scripts and ramdisk backups.</li>
+<li><strong><code>centos7-mbaye/</code></strong>: Environment-specific
+configs for CentOS 7, featuring <code>ble.sh</code> for enhanced bash
+interactions.</li>
+</ul>
+<h2 id="customization">⚙️ Customization</h2>
+<ul>
+<li><strong>Zsh:</strong> Most custom logic is sourced from
+<code>~/.nytoshell</code> and <code>~/.aliases</code>. Edit these files
+to add your own shortcuts.</li>
+<li><strong>Neovim:</strong> The configuration is split into
+<code>core</code>, <code>plugins</code>, and <code>ui_colors</code>
+within the <code>lua</code> directory for better maintainability.</li>
+</ul>
+<h2 id="todo">📝 TODO</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />Clean up repository size (reduce
+history).</label></li>
+<li><label><input type="checkbox" />Refactor <code>.zshrc</code> for
+better modularity.</label></li>
+</ul>
+<hr />
+<p><em>Maintained by Inknyto.</em></p>
