@@ -1,4 +1,4 @@
-# ~/dotfiles/zsh/.zshrc 27 Feb at 01:02:25 AM
+# ~/dotfiles/zsh/.zshrc 27 Feb at 09:35:11 AM
 # ~/.zshrc 24 Nov at 08:53:19 AM
 #  ~/.zshrc :05 Jun at 11:31:44 AM
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -97,7 +97,6 @@ plugins=(fast-syntax-highlighting fzf-tab vi-mode)
 
 # moved to p# source $ZSH/oh-my-zsh.sh
 [[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh || echo "WARNING: oh-my-zsh not found at $ZSH"
-lugins
 
 # source ~/.fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 export FAST_HIGHLIGHT_STYLES[comment]="fg=245"
