@@ -1,11 +1,19 @@
 -- ~/dotfiles/nvim/.config/nvim/lua/plugins/vim_plug.lua 27 Feb at 10:09:11 AM
 --  ~/.config/nvim/lua/plugins/vim_plug.lua :01 Jun at 04:52:58 PM
 -- Set up plugin manager (vim-plug)
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/refs/heads/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+local data_dir = vim.fn.stdpath('data') .. '/site'
+if vim.fn.empty(vim.fn.glob(data_dir .. '/autoload/plug.vim')) == 1 then
+  vim.fn.system({
+    'curl', '-fLo', data_dir .. '/autoload/plug.vim',
+    '--create-dirs',
+    'https://raw.githubusercontent.com/junegunn/vim-plug/refs/heads/master/plug.vim'
+  })
+  vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+      vim.cmd('PlugInstall --sync | source $MYVIMRC')
+    end
+  })
+end
 
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
@@ -16,17 +24,13 @@ Plug 'https://github.com/Abstract-IDE/Abstract-cs.git'
 Plug 'feline-nvim/feline.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
-
 -- surround
 Plug "kylechui/nvim-surround"
-
 -- treesitter
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/playground'
-
 -- telescope
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
-
 -- Plug 'neovim/nvim-lspconfig'
 -- Plug 'jose-elias-alvarez/null-ls.nvim'
 -- Plug 'MunifTanjim/prettier.nvim'
@@ -35,13 +39,10 @@ Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 -- Plug 'akinsho/flutter-tools.nvim'
 -- Plug 'natebosch/vim-lsc'
 -- Plug 'natebosch/vim-lsc-dart'
-
 -- coc as out of the box lsp
 Plug('neoclide/coc.nvim', { branch = 'release' })
-
 -- emmet because html is a programming language
 Plug "olrtg/nvim-emmet"
-
 -- noice nvim
 Plug 'folke/noice.nvim'
 Plug 'MunifTanjim/nui.nvim'
