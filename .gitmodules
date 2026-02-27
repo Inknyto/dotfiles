@@ -14,9 +14,9 @@
 [submodule "waybar/.config/waybar"]
 	path = waybar/.config/waybar
 	url = https://github.com/Inknyto/nyto-waybar
-[submodule "zsh/.oh-my-zsh/custom/plugins/powerlevel10k"]
-	path = zsh/.oh-my-zsh/custom/plugins/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k
 [submodule "zsh/.oh-my-zsh/custom/plugins/fzf-tab"]
 	path = zsh/.oh-my-zsh/custom/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
+[submodule "zsh/.oh-my-zsh/custom/themes/powerlevel10k"]
+	path = zsh/.oh-my-zsh/custom/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
