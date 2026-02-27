@@ -1,5 +1,12 @@
+-- ~/dotfiles/nvim/.config/nvim/lua/plugins/vim_plug.lua 27 Feb at 10:09:11 AM
 --  ~/.config/nvim/lua/plugins/vim_plug.lua :01 Jun at 04:52:58 PM
 -- Set up plugin manager (vim-plug)
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/refs/heads/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
 
