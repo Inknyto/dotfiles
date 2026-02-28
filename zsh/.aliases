@@ -1,4 +1,4 @@
-# ~/.aliases 26 Feb at 07:44:49 PM
+# ~/.aliases 28 Feb at 05:52:01 PM
 # vim: set ft=zsh:
 # quick fix
 # alias vlc=mpv
@@ -73,6 +73,5 @@ alias ncdu='ncdu --color dark'
 alias please='sudo $(fc -ln -1)'
 alias promptend='wl-copy < ~/.prompt_suffix'
 alias arduino='~/Documents/arduino_ide/arduino-ide_2.3.7_Linux_64bit.AppImage --ozone-platform=x11'
-alias pass='env WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR sudo pass'
 # alias ls="eza --color=always --icons=always"
 

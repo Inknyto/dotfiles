@@ -328,6 +328,11 @@ if terminal_exists; then
     if terminal_in_special; then
         debug_echo "Bringing terminal from scratchpad with slide down animation"
         
+        # --- Restore visibility for show ---
+        hyprctl dispatch setprop "address:$TERMINAL_ADDR" opacity 1.0 >/dev/null 2>&1
+        hyprctl dispatch setprop "address:$TERMINAL_ADDR" no_anim 0 >/dev/null 2>&1
+        # ------------------------------------
+
         # Calculate target position
         pos_info=$(calculate_dropdown_position)
         target_x=$(echo $pos_info | cut -d' ' -f1)
@@ -360,14 +365,32 @@ if terminal_exists; then
             # Animate slide up first
             animate_slide_up "$TERMINAL_ADDR" "$curr_x" "$curr_y" "$curr_width" "$curr_height"
             
-            # Small delay then move to special workspace and unpin
-            sleep 0.1
-            hyprctl dispatch pin "address:$TERMINAL_ADDR"  # Unpin (toggle)
-            hyprctl dispatch movetoworkspacesilent "$SPECIAL_WS,address:$TERMINAL_ADDR"
+            # --- DEFINITIVE FIX FOR v0.54 FLASH (Preserving Content) ---
+            # 1. Move it far off-screen and make it transparent to hide the flash
+            # DO NOT resize (e.g. 1x1) as it breaks terminal re-wrapping/scrollback
+            hyprctl dispatch movewindowpixel "exact 0 -5000,address:$TERMINAL_ADDR" >/dev/null 2>&1
+            hyprctl dispatch setprop "address:$TERMINAL_ADDR" opacity 0.0 >/dev/null 2>&1
+            
+            # 2. Disable animations for the workspace move
+            hyprctl dispatch setprop "address:$TERMINAL_ADDR" no_anim 1 >/dev/null 2>&1
+            
+            sleep 0.05
+            
+            # 3. Unpin and move to special workspace
+            hyprctl dispatch pin "address:$TERMINAL_ADDR" >/dev/null 2>&1
+            hyprctl dispatch movetoworkspacesilent "$SPECIAL_WS,address:$TERMINAL_ADDR" >/dev/null 2>&1
+            
+            # 4. Cleanup properties for the next show (restore visibility)
+            hyprctl dispatch setprop "address:$TERMINAL_ADDR" no_anim 0 >/dev/null 2>&1
+            hyprctl dispatch setprop "address:$TERMINAL_ADDR" opacity 1.0 >/dev/null 2>&1
+            # ------------------------------------------------------------
         else
             debug_echo "Could not get window geometry, moving to scratchpad without animation"
-            hyprctl dispatch pin "address:$TERMINAL_ADDR"
-            hyprctl dispatch movetoworkspacesilent "$SPECIAL_WS,address:$TERMINAL_ADDR"
+            hyprctl dispatch movewindowpixel "exact 0 -5000,address:$TERMINAL_ADDR" >/dev/null 2>&1
+            hyprctl dispatch setprop "address:$TERMINAL_ADDR" opacity 0.0 >/dev/null 2>&1
+            hyprctl dispatch pin "address:$TERMINAL_ADDR" >/dev/null 2>&1
+            hyprctl dispatch movetoworkspacesilent "$SPECIAL_WS,address:$TERMINAL_ADDR" >/dev/null 2>&1
+            hyprctl dispatch setprop "address:$TERMINAL_ADDR" opacity 1.0 >/dev/null 2>&1
         fi
     fi
 else

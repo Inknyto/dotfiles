@@ -1,3 +1,4 @@
+# ~/dotfiles/zsh/.completions/fzf-tab.zsh 28 Feb at 06:03:19 PM
 #  ~/.completions/fzf-tab.zsh :14 May at 05:42:28 PM
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
@@ -20,6 +21,10 @@ zstyle ':fzf-tab:complete:nvim:*' fzf-preview \
 
 zstyle ':fzf-tab:complete:ls:*' fzf-preview \
   '([[ -d $realpath ]] && ls --color=always $realpath) || ([[ -f $realpath ]] && bat --color=always $realpath)'
+
+zstyle ':fzf-tab:complete:cat:*' fzf-preview \
+  '([[ -d $realpath ]] && ls --color=always $realpath) || ([[ -f $realpath ]] && bat --color=always $realpath)'
+
 
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
