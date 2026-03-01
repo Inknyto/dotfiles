@@ -1,2 +1,2 @@
 clean this repo(delete old commits, reduce size)
-
+fix oh-my-zsh(set as submodule, clean git submodules file)
