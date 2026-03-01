@@ -1,4 +1,4 @@
-# ~/.aliases 28 Feb at 05:52:01 PM
+# ~/.aliases 01 Mar at 03:10:44 PM
 # vim: set ft=zsh:
 # quick fix
 # alias vlc=mpv
@@ -45,7 +45,6 @@ alias ic='kitten icat'
 alias :q=exit
 alias copystdout='wl-copy'
 alias copy='function copy () {cat $1 | wl-copy};copy'
-alias ff="firefox-developer-edition"
 alias v='nvim'
 alias l='ls -lhrt'
 alias gccd='function gccd(){git clone --depth 1 $1 && cd $(basename $1)};gccd'
