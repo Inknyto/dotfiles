@@ -1,5 +1,5 @@
 # ~/dotfiles/zsh/.zshrc 27 Feb at 09:35:11 AM
-# ~/.zshrc 24 Nov at 08:53:19 AM
+# ~/.zshrc 03 Mar at 09:49:57 PM
 #  ~/.zshrc :05 Jun at 11:31:44 AM
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -266,3 +266,5 @@ fi
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
+export GPG_TTY=$TTY
+
