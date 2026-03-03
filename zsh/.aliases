@@ -1,4 +1,5 @@
-# ~/.aliases 01 Mar at 03:25:34 PM
+# ~/dotfiles/zsh/.aliases 03 Mar at 08:15:26 PM
+# ~/.aliases 02 Mar at 12:18:43 PM
 # vim: set ft=zsh:
 # quick fix
 # alias vlc=mpv
@@ -39,6 +40,8 @@ alias clera=clear
 alias hotp=htop
 alias igt=git
 alias gti=git
+alias sduo=sudo
+alias suod=sudo
 
 # Kiss
 alias ic='kitten icat'
