@@ -22,7 +22,7 @@ sudo pacman -S stow zsh zoxide git neovim bat fzf base-devel go thefuck
 Clone the repository with all submodules:
 
 ```bash
-git clone --recurse-submodules --depth 1 --shallow-sublmodules https://github.com/Inknyto/dotfiles.git ~/dotfiles
+git clone --recurse-submodules --depth 1 --shallow-submodules https://github.com/Inknyto/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
