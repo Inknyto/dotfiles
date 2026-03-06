@@ -1,4 +1,4 @@
--- ~/dotfiles/nvim/.config/nvim/lua/plugins/treesitter.lua 06 Mar at 12:06:05 PM
+-- ~/dotfiles/nvim/.config/nvim/lua/plugins/treesitter.lua 06 Mar at 12:29:48 PM
 -- ~/.config/nvim/lua/plugins/treesitter.lua
 local ts = require('nvim-treesitter')
 
@@ -8,7 +8,7 @@ ts.setup {
 }
 
 -- Install parsers (no-op if already installed)
-ts.install({ "bash", "python", "dart", "javascript", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" })
+ts.install({ "bash", "python", "dart", "javascript", "c", "vim", "vimdoc", "query", "markdown", "markdown_inline" })
 
 -- Enable highlighting and other features via autocommands
 vim.api.nvim_create_autocmd('FileType', {
