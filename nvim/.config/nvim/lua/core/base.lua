@@ -1,3 +1,4 @@
+-- ~/dotfiles/nvim/.config/nvim/lua/core/base.lua 06 Mar at 12:04:54 PM
 --  ~/.config/nvim/lua/core/base.lua :13 Sep at 04:19:14 PM
 local opt = vim.opt
 
@@ -23,24 +24,35 @@ opt.cursorcolumn = true
 opt.shada = "!,'100,<50,s10,h"
 
 -- Folding
-opt.foldlevel = 99
 opt.foldlevelstart = 99
+opt.viewoptions = "folds,cursor,curdir,slash,unix"
 
+-- Persist cursor and folds using views
+local view_group = vim.api.nvim_create_augroup('ViewPersistence', { clear = true })
 
-
--- Set last cursor position in reopened file
-vim.api.nvim_create_autocmd('BufReadPost', {
+vim.api.nvim_create_autocmd('BufWinLeave', {
+    group = view_group,
     pattern = '*',
     callback = function()
-        local mark = vim.api.nvim_buf_get_mark(0, '"')
-        local lcount = vim.api.nvim_buf_line_count(0)
-        if mark[1] > 0 and mark[1] <= lcount then
-            vim.api.nvim_win_set_cursor(0, mark)
+        -- Skip for empty or special buffers
+        if vim.bo.buftype == '' and vim.fn.expand('%') ~= '' then
+            vim.cmd('silent! mkview')
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    group = view_group,
+    pattern = '*',
+    callback = function()
+        if vim.bo.buftype == '' and vim.fn.expand('%') ~= '' then
+            vim.cmd('silent! loadview')
         end
     end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+
   pattern = "text",
   callback = function()
     vim.bo.textwidth = 92

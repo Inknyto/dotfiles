@@ -1,3 +1,4 @@
+-- ~/dotfiles/nvim/.config/nvim/lua/plugins/treesitter.lua 06 Mar at 12:06:05 PM
 -- ~/.config/nvim/lua/plugins/treesitter.lua
 local ts = require('nvim-treesitter')
 
@@ -36,7 +37,6 @@ vim.api.nvim_create_autocmd('FileType', {
         -- Treesitter folding
         vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         vim.wo.foldmethod = 'expr'
-        vim.wo.foldlevel = 99
     end,
 })
 
