@@ -30,7 +30,8 @@ Plug 'nvim-tree/nvim-web-devicons'
 -- surround
 Plug "kylechui/nvim-surround"
 -- treesitter
-Plug ('nvim-treesitter/nvim-treesitter', {branch = 'main'})
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate', branch = 'main' })
+Plug('nvim-treesitter/nvim-treesitter-textobjects', { branch = 'main' })
 -- playground is introducing bugs
 -- Plug 'nvim-treesitter/playground'
 -- telescope

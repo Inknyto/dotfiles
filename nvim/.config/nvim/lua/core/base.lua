@@ -22,6 +22,10 @@ opt.cursorline = true
 opt.cursorcolumn = true
 opt.shada = "!,'100,<50,s10,h"
 
+-- Folding
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+
 
 
 -- Set last cursor position in reopened file
