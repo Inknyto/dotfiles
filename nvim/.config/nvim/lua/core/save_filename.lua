@@ -1,3 +1,4 @@
+-- ~/dotfiles/nvim/.config/nvim/lua/core/save_filename.lua 29 Apr 2026 at 07:55:14 AM
 -- ~/.config/nvim/lua/core/save_filename.lua 09 Nov at 06:36:09 PM
 --[[ /tmp/test/a.lua 25 Oct at 09:01:16 AM]]
 -- vim.bo.commentstring = [=[--[[ %s]]]=]
@@ -36,7 +37,7 @@ local function add_filename_comment()
 
   local lines = api.nvim_buf_get_lines(0, 0, -1, true)
 
-  local save_time = os.date "%d %b at %I:%M:%S %p"
+  local save_time = os.date "%d %b %Y at %I:%M:%S %p"
   local filename_with_date_comment = commentstring:format(filename .. " " .. save_time)
 
   local filename_comment_pattern = commentstring:format(filename .. ".*")
