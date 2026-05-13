@@ -1,0 +1,18 @@
+{
+  "model": "opus",
+  "hooks": {
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'echo \"claude --resume $(echo \"$(cat)\" | jq -r '.session_id')\" > resume_session.sh && chmod +x resume_session.sh'"
+          }
+        ]
+      }
+    ]
+  },
+  "theme": "dark",
+  "editorMode": "vim"
+}

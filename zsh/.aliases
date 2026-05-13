@@ -1,5 +1,5 @@
 # ~/dotfiles/zsh/.aliases 03 Mar at 08:15:26 PM
-# ~/.aliases 02 Mar at 12:18:43 PM
+# ~/.aliases 05 May 2026 at 08:04:22 AM
 # vim: set ft=zsh:
 # quick fix
 # alias vlc=mpv
@@ -44,12 +44,14 @@ alias sduo=sudo
 alias suod=sudo
 
 # Kiss
-alias ic='kitten icat'
+# alias ic='kitten icat'
+function ic(){ kitten icat $@ }
 alias :q=exit
 alias copystdout='wl-copy'
 alias copy='function copy () {cat $1 | wl-copy};copy'
 alias v='nvim'
 alias l='ls -lhrt'
+alias la='ls -lhrta'
 alias gccd='function gccd(){git clone --depth 1 $1 && cd $(basename $1)};gccd'
 # alias intellij='cd /home/nyto/Documents/intellij/idea-IU-232.8660.185/bin;./idea.sh'
 
@@ -74,7 +76,8 @@ alias info='info --vi-keys'
 alias ncdu='ncdu --color dark'
 alias please='sudo $(fc -ln -1)'
 alias promptend='wl-copy < ~/.prompt_suffix'
-alias arduino='~/Documents/arduino_ide/arduino-ide_2.3.7_Linux_64bit.AppImage --ozone-platform=x11'
+alias arduino='~/Documents/arduino/arduino_ide/arduino-ide_2.3.8_Linux_64bit.AppImage --ozone-platform=x11'
+
 alias ff='brave'
 # alias ls="eza --color=always --icons=always"
 

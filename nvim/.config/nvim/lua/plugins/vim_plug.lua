@@ -1,4 +1,4 @@
--- ~/dotfiles/nvim/.config/nvim/lua/plugins/vim_plug.lua 27 Feb at 01:08:54 PM
+-- ~/dotfiles/nvim/.config/nvim/lua/plugins/vim_plug.lua 04 May 2026 at 08:19:38 AM
 -- ~/.config/nvim/lua/plugins/vim_plug.lua 27 Feb at 01:01:14 PM
 --  ~/.config/nvim/lua/plugins/vim_plug.lua :01 Jun at 04:52:58 PM
 
@@ -29,9 +29,10 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 -- surround
 Plug "kylechui/nvim-surround"
--- treesitter
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate', branch = 'main' })
-Plug('nvim-treesitter/nvim-treesitter-textobjects', { branch = 'main' })
+-- deprecated
+-- -- treesitter
+-- Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate', branch = 'main' })
+-- Plug('nvim-treesitter/nvim-treesitter-textobjects', { branch = 'main' })
 -- playground is introducing bugs
 -- Plug 'nvim-treesitter/playground'
 -- telescope

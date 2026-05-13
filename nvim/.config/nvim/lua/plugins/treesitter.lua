@@ -1,46 +1,38 @@
--- ~/dotfiles/nvim/.config/nvim/lua/plugins/treesitter.lua 06 Mar at 12:29:48 PM
--- ~/.config/nvim/lua/plugins/treesitter.lua
-local ts = require('nvim-treesitter')
+-- ~/dotfiles/nvim/.config/nvim/lua/plugins/treesitter.lua 04 May 2026 at 09:13:08 AM
+-- nvim-treesitter is archived. Using native Neovim treesitter instead.
 
--- Directory to install parsers and queries to
-ts.setup {
-    -- install_dir = vim.fn.stdpath('data') .. '/site'
-}
-
--- Install parsers (no-op if already installed)
-ts.install({ "bash", "python", "dart", "javascript", "c", "vim", "vimdoc", "query", "markdown", "markdown_inline" })
-
--- Enable highlighting and other features via autocommands
 vim.api.nvim_create_autocmd('FileType', {
     group = vim.api.nvim_create_augroup('TreesitterConfig', { clear = true }),
     callback = function(args)
         local bufnr = args.buf
         local ft = vim.bo[bufnr].filetype
-        local lang = vim.treesitter.language.get_lang(ft) or ft
 
-        -- Check if parser is installed for this language
-        local has_parser = pcall(vim.treesitter.get_parser, bufnr, lang)
-        if not has_parser then
+        if ft == 'text' or ft == '' then
             return
         end
 
-        -- Treesitter highlighting with file size check
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-        if ok and stats and stats.size < max_filesize then
-            vim.treesitter.start(bufnr, lang)
+        local lang = vim.treesitter.language.get_lang(ft) or ft
+
+        -- Safe parser check without deprecated has_parser
+        local ok = pcall(vim.treesitter.get_parser, bufnr, lang)
+        if not ok then
+            return
         end
 
-        -- Treesitter indentation (experimental)
-        vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        local max_filesize = 100 * 1024 -- 100 KB
+        local stat_ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+        if stat_ok and stats and stats.size < max_filesize then
+            -- pcall here too, so a bad query file won't crash the buffer
+            pcall(vim.treesitter.start, bufnr, lang)
+        end
 
-        -- Treesitter folding
+        vim.bo[bufnr].indentexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         vim.wo.foldmethod = 'expr'
     end,
 })
 
--- Textobjects configuration (requires nvim-treesitter-textobjects plugin)
+-- Textobjects (nvim-treesitter-textobjects still works standalone)
 local ok_to, to = pcall(require, 'nvim-treesitter-textobjects')
 if ok_to then
     to.setup {
@@ -55,11 +47,23 @@ if ok_to then
                 ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
             },
             selection_modes = {
-                ['@parameter.outer'] = 'v', -- charwise
-                ['@function.outer'] = 'V', -- linewise
-                ['@class.outer'] = '<c-v>', -- blockwise
+                ['@parameter.outer'] = 'v',
+                ['@function.outer'] = 'V',
+                ['@class.outer'] = '<c-v>',
             },
             include_surrounding_whitespace = true,
         },
     }
 end
+
+-- simple startup 
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = { "*" },
+--   callback = function(ctx)
+--     -- Check if the buffer has a valid parser to avoid errors on unsupported filetypes
+--     if vim.treesitter.get_parser(nil, nil, { error = false }) then
+--       vim.treesitter.start()
+--     end
+--   end,
+-- })   

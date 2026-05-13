@@ -1,2 +1,6 @@
 clean this repo(delete old commits, reduce size)
 fix oh-my-zsh(set as submodule, clean git submodules file)
+clean zshrc
+add theme configuration
+setup proper lsp (remove coc)
+fix dropterminal resizing issue

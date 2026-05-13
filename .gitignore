@@ -1,1 +1,5 @@
-# ~/dotfiles/.gitignore 27 Feb at 12:22:55 AM
+# ~/dotfiles/.gitignore 13 May 2026 at 09:44:08 AM
+*.gz
+*.zip
+restore_session.sh
+mobaxterm

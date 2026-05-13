@@ -1,5 +1,5 @@
 #  ~/.nytoshell :06 Oct at 06:41:43 PM
-# ~/.nytoshell 15 Jan at 05:55:59 PM
+# ~/.nytoshell 09 May 2026 at 12:23:47 AM
 # vim:ft=zsh
 
 # Create directory and cd into it
@@ -63,3 +63,9 @@ function mkcp() {
 }
 
 function back(){ cp $1 $1.bak }
+
+function set_latest_file {
+    LAST=$(ls -t | head -1 )
+}
+precmd_functions+=(set_latest_file)
+

@@ -1,7 +1,4 @@
-; ~/dotfiles/.gitmodules 27 Feb at 09:43:34 AM
-[submodule "fast-syntax-highlighting"]
-	path = zsh/.oh-my-zsh/custom/plugins/fast-syntax-highlighting
-	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
+; ~/dotfiles/.gitmodules 13 May 2026 at 08:44:34 AM
 [submodule "oh-my-zsh"]
 	path = zsh/.oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
@@ -11,12 +8,18 @@
 [submodule "waybar/.config/waybar"]
 	path = waybar/.config/waybar
 	url = https://github.com/Inknyto/nyto-waybar
-[submodule "zsh/.oh-my-zsh/custom/plugins/fzf-tab"]
-	path = zsh/.oh-my-zsh/custom/plugins/fzf-tab
-	url = https://github.com/Aloxaf/fzf-tab
-[submodule "zsh/.oh-my-zsh/custom/themes/powerlevel10k"]
-	path = zsh/.oh-my-zsh/custom/themes/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k
 [submodule "centos7-mbaye/.mbaye/ble.sh"]
 	path = centos7-mbaye/.mbaye/ble.sh
 	url = https://github.com/akinomyoga/ble.sh
+[submodule "fast-syntax-highlighting"]
+	path = zsh/.zsh-custom/plugins/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
+[submodule "fzf-tab"]
+	path = zsh/.zsh-custom/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git
+[submodule "zsh-claudecode-completion"]
+	path = zsh/.zsh-custom/plugins/zsh-claudecode-completion
+	url = https://github.com/wbingli/zsh-claudecode-completion.git
+[submodule "powerlevel10k"]
+	path = zsh/.zsh-custom/themes/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
