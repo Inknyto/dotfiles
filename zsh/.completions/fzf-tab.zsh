@@ -1,4 +1,4 @@
-# ~/dotfiles/zsh/.completions/fzf-tab.zsh 22 Apr at 10:51:26 AM
+# ~/dotfiles/zsh/.completions/fzf-tab.zsh 28 Feb at 06:03:19 PM
 #  ~/.completions/fzf-tab.zsh :14 May at 05:42:28 PM
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
@@ -9,22 +9,21 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
-# preview directory's content with eza and files with kitten icat (images) or bat (text)
-# zstyle ':fzf-tab:complete:*:*' fzf-preview \
-#   'kitten icat --clear --stdin no > /dev/null 2>&1;
-#    if [[ -d $realpath ]]; then
-#     eza -1 --color=always $realpath
-#   elif [[ -f $realpath ]]; then
-#     if [[ $realpath =~ \.(png|jpg|gif|jpeg|svg)$ ]]; then
-#       if [[ -n "$FZF_PREVIEW_WIDTH" && -n "$FZF_PREVIEW_HEIGHT" ]]; then
-#         kitten icat --clear --stdin no --place "${FZF_PREVIEW_WIDTH}x${FZF_PREVIEW_HEIGHT}@${FZF_PREVIEW_LEFT}x${FZF_PREVIEW_TOP}" "$realpath"
-#       else
-#         kitten icat --clear --stdin no "$realpath"
-#       fi
-#     else
-#       bat --color=always "$realpath"
-#     fi
-#   fi'
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+
+# zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'bat --color=always $realpath'
+# zstyle ':fzf-tab:complete:nvim:*' fzf-preview 'bat --color=always $realpath'
+
+zstyle ':fzf-tab:complete:nvim:*' fzf-preview \
+  '([[ -d $realpath ]] && ls --color=always $realpath) || ([[ -f $realpath ]] && bat --color=always $realpath)'
+
+
+zstyle ':fzf-tab:complete:ls:*' fzf-preview \
+  '([[ -d $realpath ]] && ls --color=always $realpath) || ([[ -f $realpath ]] && bat --color=always $realpath)'
+
+zstyle ':fzf-tab:complete:cat:*' fzf-preview \
+  '([[ -d $realpath ]] && ls --color=always $realpath) || ([[ -f $realpath ]] && bat --color=always $realpath)'
 
 
 # switch group using `<` and `>`

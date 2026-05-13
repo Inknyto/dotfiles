@@ -19,7 +19,7 @@ and Powerlevel10k to render correctly.</p>
 <h3 id="installation">2. Installation</h3>
 <p>Clone the repository with all submodules:</p>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--recursive</span> https://github.com/Inknyto/dotfiles.git ~/dotfiles</span>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--recurse-submodules</span> <span class="at">--depth</span> 1 <span class="at">--shallow-submodules</span> https://github.com/Inknyto/dotfiles.git ~/dotfiles</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/dotfiles</span></code></pre></div>
 <h3 id="deploying-with-stow">3. Deploying with Stow</h3>
 <p>Use <code>stow</code> to symlink the configurations to your home
